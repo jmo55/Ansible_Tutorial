@@ -22,3 +22,6 @@ ansible all -m gather_facts
 
 ansible all -m gather_facts --limit ansible@192.168.122.91
 
+# add --tree /tmp/facts or any dir to output to file #
+
+ansible all -m gather_facts --tree /tmp/fact
