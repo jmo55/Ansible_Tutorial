@@ -1,4 +1,4 @@
-# test ping module to host/s #  (-m=module)
+# test ping module to host/s #  (-m=module),(-a=argument)
 
 ansible all --key-file ~/.ssh/ansible -i inventory -m ping
 
@@ -25,3 +25,13 @@ ansible all -m gather_facts --limit ansible@192.168.122.91
 # add --tree /tmp/facts or any dir to output to file #
 
 ansible all -m gather_facts --tree /tmp/fact
+
+# run as privileged/sudo for commands that make system changes "--become --ask-become-pass #
+
+Example: ansible all -m apt -a update_cache=true --become --ask-become-pass 
+
+# command above will prompt for password #
+
+# install package command with module apt wit -a (argument) name=vim #
+
+Example: ansible all -m apt -a name=vim-nox --become --ask-become-pass
