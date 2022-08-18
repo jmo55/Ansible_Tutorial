@@ -35,3 +35,16 @@ Example: ansible all -m apt -a update_cache=true --become --ask-become-pass
 # install package command with module apt wit -a (argument) name=vim #
 
 Example: ansible all -m apt -a name=vim-nox --become --ask-become-pass
+
+
+# upgrade specific package command #
+
+ansible all -m apt -a "name=snapd state=latest" --become --ask-become-pas
+
+# upgrade distro #
+
+ansible all -m apt -a "upgrade=dist" --become --ask-become-pass
+
+# command to run playbook/.yml file #
+
+ansible-playbook or (run as sudo) ansible-playbook --ask-become-pass install_apache.yml ("playbook-name")
