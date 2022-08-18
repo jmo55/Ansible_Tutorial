@@ -21,3 +21,4 @@ ansible all -m gather_facts
 # limit gather information to 1 host #
 
 ansible all -m gather_facts --limit ansible@192.168.122.91
+
