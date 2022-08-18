@@ -1,21 +1,52 @@
 ---
 
-- name: Add Docker GPG apt Key
-      apt_key:
-        url: https://download.docker.com/linux/ubuntu/gpg
-        state: present
+ - hosts: all
+   become: true
+   tasks:
 
-    - name: Add Docker Repository
-      apt_repository:
-        repo: deb https://download.docker.com/linux/ubuntu focal stable
-        state: present
+   - name: Add Docker GPG apt Key
+     apt_key:
+       url: https://download.docker.com/linux/ubuntu/gpg
+       state: present
 
-    - name: Update apt and install docker-ce
-      apt:
-        name: docker-ce
-        state: latest
-        update_cache: true
+   - name: Add Docker Repository
+     apt_repository:
+       repo: deb https://download.docker.com/linux/ubuntu focal stable
+       state: present
 
-    - name: Install Docker Module for Python
-      pip:
-        name: docker
+   - name: Update apt and install docker-ce
+     apt:
+       name: docker-ce
+       state: latest
+       update_cache: true
+
+   - name: Install Python
+     apt: 
+       name: python3
+       state: latest
+
+   - name: Install pip
+     apt:
+       name: python3-pip
+       state: latest
+
+   - name: Install Docker Module for Python
+     pip:
+       name: docker
+
+   - name: Start docker service
+     service:
+       name: docker
+       state: started
+
+   - name: Create hello world container
+     docker_container:
+       name: My-Hello-World
+       image: hello-world
+       restart: yes
+       state: present
+       recreate: yes
+       #command: run -it /bin/sh
+       ports: 
+        - "8080:8080"
+  
