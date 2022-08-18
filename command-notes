@@ -1,0 +1,6 @@
+# test ping module to host/s #
+
+ansible all --key-file ~/.ssh/ansible -i inventory -m ping
+
+# Note: "~/.ssh/ansible" is the path of the ssh key ceated for automated ssh # # inventory file was created by me,
+# contains host/s ip/s #
