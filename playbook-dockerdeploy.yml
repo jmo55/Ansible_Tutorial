@@ -45,17 +45,23 @@
        name: docker
        state: started
    
+   - name: create volume 1
+     docker_volume:
+       name: portainer_data
+
    - name: Create portainer container
      docker_container:
        name: portainer
        image: portainer/portainer-ce:2.9.3
        restart: yes
-       state: present
+       state: started
        recreate: yes
-       command: bash
+       #command: bash
        ports: 
        - "9443:9443"
        - "9000:9000"
        - "8000:8000"
-
+       volumes:
+         #- var/run/docker.sock:/var/run/docker.sock
+         - portainer_data:/data
 
