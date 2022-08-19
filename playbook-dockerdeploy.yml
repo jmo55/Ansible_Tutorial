@@ -20,6 +20,12 @@
        state: latest
        update_cache: true
 
+   - name: Install docker-compose
+     get_url:
+       url: https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64
+       dest: /usr/local/bin/docker-compose
+       mode: 'u+x,g+x'
+
    - name: Install Python
      apt: 
        name: python3
@@ -38,15 +44,18 @@
      service:
        name: docker
        state: started
-
-   - name: Create hello world container
+   
+   - name: Create portainer container
      docker_container:
-       name: My-Hello-World
-       image: hello-world
+       name: portainer
+       image: portainer/portainer-ce:2.9.3
        restart: yes
        state: present
        recreate: yes
-       #command: run -it /bin/sh
+       command: bash
        ports: 
-        - "8080:8080"
-  
+       - "9443:9443"
+       - "9000:9000"
+       - "8000:8000"
+
+
